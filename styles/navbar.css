@@ -125,23 +125,6 @@
   }
 }
 @media screen and (min-width: 992px) {
-  .app__navbar-link:before {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    width: 100%;
-    height: 285px;
-    background-color: #fff;
-    content: "";
-    transition: opacity 0.3s, visibility 0.3s;
-    opacity: 0;
-    visibility: hidden;
-  }
-  .app__navbar-link.has-links:hover:before {
-    opacity: 1;
-    visibility: visible;
-  }
 }
 @media screen and (max-width: 991px) {
   .app__navbar-links {
@@ -150,68 +133,6 @@
   .app__navbar-smallscreen {
     display: flex;
   }
-  .menu__sub {
-    position: fixed;
-    z-index: 20;
-    max-width: 100%;
-    width: 80vw;
-    height: 100vh;
-    top: 0;
-    right: 0;
-    padding: 20px;
-    margin: 0;
-    opacity: 1;
-    transform: translateX(100%);
-    transition: all 0.3s;
-    display: block;
-    background: #f5f7f9;
-    overflow: scroll;
-  }
-  .menu__sub-link {
-    font-size: 1.3rem;
-    white-space: normal;
-    margin-bottom: 21px;
-  }
-  .menu__prev-link {
-    color: #0f213f;
-    font-size: 1.6rem;
-    font-weight: 700;
-    position: relative;
-    display: inline-block;
-    width: 100%;
-    margin-bottom: 1.8rem;
-    padding-right: 35px;
-  }
-  .menu__sub.active {
-    transform: translateX(0);
-    pointer-events: all;
-  }
-  .menu__sub .menu__column:first-of-type {
-    margin: 0;
-  }
-  .menu__sub ul {
-    width: 100%;
-  }
 }
 @media screen and (max-width: 650px) {
-  .next__level-arrow {
-    width: 30px;
-    height: 30px;
-  }
-
-  .menu__sub-link {
-    font-size: 1.3rem;
-    margin-bottom: 14px;
-  }
-  .app__navbar-logo img {
-    width: 190px;
-  }
-  .app__navbar-mobile-login {
-    display: flex;
-    flex-direction: column;
-    color: var(--color-grey);
-  }
-  .app__navbar-mobile-login a {
-    margin: 1rem;
-  }
 }

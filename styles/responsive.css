@@ -1,0 +1,281 @@
+@media screen and (min-width: 1200px) {
+  .q__key-box:nth-child(3n) {
+    border-right: 0;
+  }
+
+  .q__key-box:nth-child(-n + 3) {
+    border-top: 0;
+  }
+}
+@media screen and (max-width: 1200px) {
+  .about__cta-in {
+    padding: 6rem 4rem;
+  }
+
+  .destination__hero {
+    padding: 4rem 0 0 0;
+  }
+
+  .quick__keys-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .q__key-box {
+    min-width: auto;
+  }
+  .q__key-box:nth-child(-n + 3) {
+    border: auto;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .app__navbar {
+    padding: 1rem 0;
+  }
+
+  .app__hero {
+    padding: 5rem 0;
+  }
+
+  .about__page .app__hero .p__text {
+    font-size: 18px;
+    line-height: 30px;
+  }
+
+  .text__underline::after {
+    height: 50%;
+    bottom: 0;
+  }
+
+  .main__title {
+    font-size: clamp(1.4rem, 4vw, 2rem);
+  }
+  .headtext,
+  .apply__page .app__hero .main__title {
+    font-size: clamp(1.3rem, 4vw, 1.5rem);
+    margin-bottom: 30px;
+  }
+
+  .about__page .main__title {
+    font-size: clamp(1.6rem, 4vw, 2rem);
+  }
+
+  .stats__section .headtext {
+    font-size: clamp(1.3rem, 4vw, 1.5rem);
+  }
+  .contact__page .main__title {
+    font-size: clamp(1.4rem, 4vw, 1.7rem);
+  }
+
+  .how__steps {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .home__how .headtext {
+    font-size: clamp(1.3rem, 4vw, 1.5rem);
+  }
+
+  .testimonials__section {
+    padding: 3rem 0 8rem;
+  }
+
+  .testimonials__section .headtext {
+    font-size: clamp(1.4rem, 4vw, 2rem);
+  }
+  .testimonials__wrapper {
+    display: block;
+  }
+
+  .quote-shape {
+    height: auto;
+  }
+
+  .testimonials__list {
+    margin-top: 2.5rem;
+  }
+
+  .home__video .app__video {
+    min-height: 300px;
+    height: auto;
+    margin: 0;
+    transform: translateY(-50%);
+  }
+  .app__video {
+    min-height: 300px;
+    height: auto;
+  }
+
+  .about__section {
+    padding: 6rem 0 5rem;
+  }
+
+  .about__section .p__text {
+    font-size: 16px;
+    line-height: 30px;
+  }
+
+  .contact__page-in {
+    display: block;
+  }
+  .contact__info {
+    margin-bottom: 60px;
+  }
+
+  .destionation__detail {
+    display: block;
+  }
+  .destination__hero-text {
+    display: block;
+  }
+
+  .destination__title {
+    margin-bottom: 40px;
+  }
+  .destination__hero-text .p__text {
+    font-size: 18px;
+    line-height: 30px;
+  }
+  .quick__keys-title {
+    font-size: clamp(1.4rem, 4vw, 1.7rem);
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .app__input,
+  .app__select {
+    height: auto;
+    padding: 20px 30px;
+    font-size: 18px;
+    border-radius: 15px;
+  }
+  .input__group {
+    flex-direction: column;
+  }
+  .about__cta-in {
+    display: block;
+    padding: 2rem 4rem;
+  }
+  .about__cta .headtext {
+    margin-bottom: 30px;
+  }
+}
+
+@media screen and (min-width: 650px) and (max-width: 1200px) {
+  .q__key-box:nth-child(2n) {
+    border-right: 0;
+  }
+
+  .q__key-box:nth-child(-n + 2) {
+    border-top: 0;
+  }
+}
+@media screen and (max-width: 650px) {
+  .quick__keys-list {
+    display: block;
+  }
+  .q__key-box {
+    border: 0 !important;
+    border-bottom: 2px dashed #3a3a3a !important;
+    min-height: 150px;
+    padding: 2rem 1rem;
+  }
+  .q__key-box:last-of-type {
+    border-bottom: 0 !important;
+  }
+}
+@media screen and (max-width: 479px) {
+  .headtext br {
+    display: none;
+  }
+  .p__text {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .app__btn {
+    padding: 15px 20px;
+    border-radius: 10px;
+    font-weight: 400;
+  }
+  .home__hero-btns {
+    gap: 15px;
+    row-gap: 20px;
+  }
+  .video__btn {
+    font-size: 16px;
+    gap: 15px;
+  }
+  .video__btn-icon {
+    padding: 15px 20px;
+    border-radius: 10px;
+  }
+  .video__btn-icon::after {
+    border-radius: 10px;
+  }
+
+  .app__btn-lg {
+    font-size: 16px;
+  }
+
+  .home__hero {
+    padding: 5rem 0;
+  }
+
+  .stats__section {
+    border-radius: 25px;
+  }
+  .stats__section::before {
+    border-radius: 25px;
+  }
+
+  .stats__section .headtext {
+    margin-bottom: 50px;
+  }
+  .stat__box-title {
+    font-size: 20px;
+  }
+
+  .home__how {
+    padding: 5rem 0 0;
+  }
+
+  .quote-shape {
+    width: 120px;
+  }
+  .testimonial__box-message {
+    font-size: 14px;
+    line-height: 30px;
+  }
+
+  .testiomnial__carousel-controls {
+    justify-content: center;
+    margin-top: 3rem;
+    position: relative;
+    top: 0;
+  }
+
+  .about__page .app__hero .p__text {
+    font-size: 16px;
+    line-height: 25px;
+  }
+
+  .about__section .p__text {
+    font-size: 14px;
+    line-height: 25px;
+  }
+
+  .contact__link {
+    font-size: 14px;
+    font-weight: 500;
+    padding: 10px 25px;
+  }
+  .contact__link-shape {
+    height: 48px;
+  }
+
+  .q__key-title {
+    font-size: 20px;
+    line-height: 30px;
+  }
+}

@@ -73,7 +73,7 @@ function Footer() {
                 </div>
               </div>
               <div className="footer__col">
-                <h6 className="footer__title">Destnations</h6>
+                <h6 className="footer__title">Company</h6>
                 <Link href="/about" className="footer__link">
                   About us
                 </Link>
