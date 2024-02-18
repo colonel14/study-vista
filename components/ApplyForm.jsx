@@ -25,22 +25,30 @@ import { Progress } from "./ui/progress";
 
 const formSchema = z.object({
   fullname: z.string({ required_error: "Fullname is required" }),
-  gender: z.string({ required_error: "Please select gender." }),
-  nationality: z.string({ required_error: "Please select nationality." }),
-  city: z.string({ required_error: "Please select city." }),
-  residence: z.string({ required_error: "Please select residence." }),
+  gender: z.string({ required_error: "Please select gender." }).optional(),
+  nationality: z
+    .string({ required_error: "Please select nationality." })
+    .optional(),
+  city: z.string({ required_error: "Please select city." }).optional(),
+  residence: z
+    .string({ required_error: "Please select residence." })
+    .optional(),
   email: z
     .string({ required_error: "Email is required" })
     .refine((value) => /\S+@\S+\.\S+/.test(value), {
       message: "Invalid email format. Please enter a valid email address.",
     }),
   mobile: z.string({ required_error: "Mobile is required" }),
-  dob: z.string({ required_error: "Please select a date." }),
-  where: z.string({ required_error: "Please select a value." }),
-  university: z.string({ required_error: "Please select a value." }),
-  subjectArea: z.string({ required_error: "Please select a value." }),
-  destination: z.string({ required_error: "Please select a value." }),
-  startDate: z.string({ required_error: "Please select a value." }),
+  dob: z.string({ required_error: "Please select a date." }).optional(),
+  where: z.string({ required_error: "Please select a value." }).optional(),
+  university: z.string({ required_error: "Please select a value." }).optional(),
+  subjectArea: z
+    .string({ required_error: "Please select a value." })
+    .optional(),
+  destination: z
+    .string({ required_error: "Please select a value." })
+    .optional(),
+  startDate: z.string({ required_error: "Please select a value." }).optional(),
 });
 
 const steps = [
