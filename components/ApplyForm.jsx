@@ -22,33 +22,26 @@ import {
 } from "./ui/select";
 import { useState } from "react";
 import { Progress } from "./ui/progress";
+import toast from "react-hot-toast";
 
 const formSchema = z.object({
   fullname: z.string({ required_error: "Fullname is required" }),
-  gender: z.string({ required_error: "Please select gender." }).optional(),
-  nationality: z
-    .string({ required_error: "Please select nationality." })
-    .optional(),
-  city: z.string({ required_error: "Please select city." }).optional(),
-  residence: z
-    .string({ required_error: "Please select residence." })
-    .optional(),
+  gender: z.string({ required_error: "Please select gender." }),
+  nationality: z.string({ required_error: "Please select nationality." }),
+  city: z.string({ required_error: "Please select city." }),
+  residence: z.string({ required_error: "Please select residence." }),
   email: z
     .string({ required_error: "Email is required" })
     .refine((value) => /\S+@\S+\.\S+/.test(value), {
       message: "Invalid email format. Please enter a valid email address.",
     }),
   mobile: z.string({ required_error: "Mobile is required" }),
-  dob: z.string({ required_error: "Please select a date." }).optional(),
-  where: z.string({ required_error: "Please select a value." }).optional(),
-  university: z.string({ required_error: "Please select a value." }).optional(),
-  subjectArea: z
-    .string({ required_error: "Please select a value." })
-    .optional(),
-  destination: z
-    .string({ required_error: "Please select a value." })
-    .optional(),
-  startDate: z.string({ required_error: "Please select a value." }).optional(),
+  dob: z.string({ required_error: "Please select a date." }),
+  where: z.string({ required_error: "Please select a value." }),
+  university: z.string({ required_error: "Please select a value." }),
+  subjectArea: z.string({ required_error: "Please select a value." }),
+  destination: z.string({ required_error: "Please select a value." }),
+  startDate: z.string({ required_error: "Please select a value." }),
 });
 
 const steps = [
@@ -92,18 +85,15 @@ function ApplyForm() {
   });
 
   function onSubmit(values) {
-    console.log(values);
+    toast.success("Submitted Successfully");
   }
 
   const onNext = async () => {
     const fields = steps[currentStep - 1].fields;
     const output = await form.trigger(fields, { shouldFocus: true });
 
-    console.log(fields);
-    console.log(output);
-
     if (!output) return;
-    if (currentStep < steps.length - 1) {
+    if (currentStep < steps.length) {
       setCurrentStep((value) => value + 1);
     }
   };
@@ -146,7 +136,11 @@ function ApplyForm() {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Select {...field}>
+                      <Select
+                        onValueChange={field.onChange}
+                        value={field.value}
+                        defaultValue={field.value}
+                      >
                         <SelectTrigger className="app__select">
                           <SelectValue placeholder="Gender" />
                         </SelectTrigger>
@@ -169,14 +163,20 @@ function ApplyForm() {
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
-                        <Select {...field}>
+                        <Select
+                          onValueChange={field.onChange}
+                          value={field.value}
+                          defaultValue={field.value}
+                        >
                           <SelectTrigger className="app__select">
                             <SelectValue placeholder="Nationality" />
                           </SelectTrigger>
                           <SelectContent>
                             <SelectGroup>
-                              <SelectItem value="male">Male</SelectItem>
-                              <SelectItem value="female">Female</SelectItem>
+                              <SelectItem value="option1">Option 1</SelectItem>
+                              <SelectItem value="option2">Option 2</SelectItem>
+                              <SelectItem value="option3">Option 3</SelectItem>
+                              <SelectItem value="option4">Option 4</SelectItem>
                             </SelectGroup>
                           </SelectContent>
                         </Select>
@@ -191,14 +191,20 @@ function ApplyForm() {
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
-                        <Select {...field}>
+                        <Select
+                          onValueChange={field.onChange}
+                          value={field.value}
+                          defaultValue={field.value}
+                        >
                           <SelectTrigger className="app__select">
                             <SelectValue placeholder="City" />
                           </SelectTrigger>
                           <SelectContent>
                             <SelectGroup>
-                              <SelectItem value="male">Male</SelectItem>
-                              <SelectItem value="female">Female</SelectItem>
+                              <SelectItem value="option1">Option 1</SelectItem>
+                              <SelectItem value="option2">Option 2</SelectItem>
+                              <SelectItem value="option3">Option 3</SelectItem>
+                              <SelectItem value="option4">Option 4</SelectItem>
                             </SelectGroup>
                           </SelectContent>
                         </Select>
@@ -214,14 +220,20 @@ function ApplyForm() {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Select {...field}>
+                      <Select
+                        onValueChange={field.onChange}
+                        value={field.value}
+                        defaultValue={field.value}
+                      >
                         <SelectTrigger className="app__select">
                           <SelectValue placeholder="Country of residence" />
                         </SelectTrigger>
                         <SelectContent>
                           <SelectGroup>
-                            <SelectItem value="male">Male</SelectItem>
-                            <SelectItem value="female">Female</SelectItem>
+                            <SelectItem value="option1">Option 1</SelectItem>
+                            <SelectItem value="option2">Option 2</SelectItem>
+                            <SelectItem value="option3">Option 3</SelectItem>
+                            <SelectItem value="option4">Option 4</SelectItem>
                           </SelectGroup>
                         </SelectContent>
                       </Select>
@@ -254,6 +266,7 @@ function ApplyForm() {
                         placeholder="Email"
                         {...field}
                         className="app__input"
+                        type="email"
                       />
                     </FormControl>
                     <FormMessage />
@@ -301,14 +314,20 @@ function ApplyForm() {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Select {...field}>
+                      <Select
+                        onValueChange={field.onChange}
+                        value={field.value}
+                        defaultValue={field.value}
+                      >
                         <SelectTrigger className="app__select">
                           <SelectValue placeholder="Where did you hear about us?" />
                         </SelectTrigger>
                         <SelectContent>
                           <SelectGroup>
-                            <SelectItem value="male">Male</SelectItem>
-                            <SelectItem value="female">Female</SelectItem>
+                            <SelectItem value="option1">Option 1</SelectItem>
+                            <SelectItem value="option2">Option 2</SelectItem>
+                            <SelectItem value="option3">Option 3</SelectItem>
+                            <SelectItem value="option4">Option 4</SelectItem>
                           </SelectGroup>
                         </SelectContent>
                       </Select>
@@ -354,14 +373,20 @@ function ApplyForm() {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Select {...field}>
+                      <Select
+                        onValueChange={field.onChange}
+                        value={field.value}
+                        defaultValue={field.value}
+                      >
                         <SelectTrigger className="app__select">
                           <SelectValue placeholder="Subject area" />
                         </SelectTrigger>
                         <SelectContent>
                           <SelectGroup>
-                            <SelectItem value="male">Male</SelectItem>
-                            <SelectItem value="female">Female</SelectItem>
+                            <SelectItem value="option1">Option 1</SelectItem>
+                            <SelectItem value="option2">Option 2</SelectItem>
+                            <SelectItem value="option3">Option 3</SelectItem>
+                            <SelectItem value="option4">Option 4</SelectItem>
                           </SelectGroup>
                         </SelectContent>
                       </Select>
@@ -376,14 +401,20 @@ function ApplyForm() {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Select {...field}>
+                      <Select
+                        onValueChange={field.onChange}
+                        value={field.value}
+                        defaultValue={field.value}
+                      >
                         <SelectTrigger className="app__select">
                           <SelectValue placeholder="preferred destinations" />
                         </SelectTrigger>
                         <SelectContent>
                           <SelectGroup>
-                            <SelectItem value="male">Male</SelectItem>
-                            <SelectItem value="female">Female</SelectItem>
+                            <SelectItem value="option1">Option 1</SelectItem>
+                            <SelectItem value="option2">Option 2</SelectItem>
+                            <SelectItem value="option3">Option 3</SelectItem>
+                            <SelectItem value="option4">Option 4</SelectItem>
                           </SelectGroup>
                         </SelectContent>
                       </Select>
@@ -398,14 +429,20 @@ function ApplyForm() {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Select {...field}>
+                      <Select
+                        onValueChange={field.onChange}
+                        value={field.value}
+                        defaultValue={field.value}
+                      >
                         <SelectTrigger className="app__select">
                           <SelectValue placeholder="when do you want to start?" />
                         </SelectTrigger>
                         <SelectContent>
                           <SelectGroup>
-                            <SelectItem value="male">Male</SelectItem>
-                            <SelectItem value="female">Female</SelectItem>
+                            <SelectItem value="option1">Option 1</SelectItem>
+                            <SelectItem value="option2">Option 2</SelectItem>
+                            <SelectItem value="option3">Option 3</SelectItem>
+                            <SelectItem value="option4">Option 4</SelectItem>
                           </SelectGroup>
                         </SelectContent>
                       </Select>

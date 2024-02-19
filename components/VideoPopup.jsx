@@ -1,15 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import Video from "next-video";
 
-import myVideo from "/videos/graduation-video.mp4";
 import useVideoPopup from "@/hooks/useVideoPopup";
 import { X } from "lucide-react";
+import VideoPlayer from "./VideoPlayer";
 
 function VideoPopup() {
   const videoPopup = useVideoPopup();
-  //   const [isOpen, setIsOpen] = useState(videoPopup.isOpen);
 
   if (!videoPopup.isOpen) return null;
 
@@ -21,7 +19,7 @@ function VideoPopup() {
             className="video__popup-close"
             onClick={() => videoPopup.onClose()}
           />
-          <Video src={myVideo} className="app__video" />
+          <VideoPlayer />
         </div>
       </div>
     </div>

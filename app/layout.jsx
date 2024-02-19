@@ -7,6 +7,7 @@ import "@/styles/footer.css";
 import "@/styles/responsive.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { Toaster } from "react-hot-toast";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -59,6 +60,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${poppins.variable} ${dinamit.variable}`}>
+        <Toaster />
         <Navbar />
         <main>{children}</main>
         <Footer />

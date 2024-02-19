@@ -63,6 +63,7 @@ body {
   font-size: 20px;
   font-weight: 600;
   line-height: 30px;
+  gap: 15px;
 }
 
 .more__link .arrow-forward {
@@ -524,6 +525,57 @@ body {
   position: relative;
   z-index: 20;
 }
+.app__video video {
+  width: 100%;
+  height: 100%;
+}
+
+.app__video-overlay {
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.app__video.play .app__video-icon {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.app__video.play .app__video-overlay {
+  pointer-events: none;
+  background: none;
+}
+
+.app__video-icon {
+  color: #fff;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  opacity: 1;
+  transform: scale(1) translate(-50%, -50%);
+  transition: all 0.4s;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 10;
+}
+
+.app__video-thumbnail {
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  z-index: 1;
+}
+
+.app__video.play .app__video-thumbnail {
+  opacity: 0;
+  pointer-events: none;
+}
 
 /* Testiomonials Section */
 .testimonials__section {
@@ -831,6 +883,7 @@ body {
   z-index: -1;
   grid-column: 1/1;
   grid-row: 1;
+  margin-top: 100px;
 }
 
 .destination__placeholder::after {

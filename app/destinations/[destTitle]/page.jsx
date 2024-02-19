@@ -37,23 +37,33 @@ async function DestinationDetail({ params: { destTitle } }) {
             </div>
             <div className="q__key-box">
               <h4 className="q__key-title">Capital City</h4>
-              <span className="q__key-info">Washington, D.C</span>
+              <span className="q__key-info">
+                {destination?.keys?.capitalCity || "Washington, D.C"}
+              </span>
             </div>
             <div className="q__key-box">
               <h4 className="q__key-title">Currency</h4>
-              <span className="q__key-info">$ US Dollar</span>
+              <span className="q__key-info">
+                {destination?.keys?.currency || "$ US Dollar"}
+              </span>
             </div>
             <div className="q__key-box">
               <h4 className="q__key-title">Tuition Fees</h4>
-              <span className="q__key-info">Starting from $12,500/Year</span>
+              <span className="q__key-info">
+                Starting from {destination?.keys?.fees || "$12,500"}/Year
+              </span>
             </div>
             <div className="q__key-box">
               <h4 className="q__key-title">Total Cost of Living</h4>
-              <span className="q__key-info">$1000-$1500/Month</span>
+              <span className="q__key-info">
+                {destination?.keys?.totalCost || "$1000-$1500"}/Month
+              </span>
             </div>
             <div className="q__key-box">
               <h4 className="q__key-title">Intakes</h4>
-              <span className="q__key-info">Fall & Spring</span>
+              <span className="q__key-info">
+                {destination?.keys?.intakes || "Fall & Spring"}
+              </span>
             </div>
             <div className="q__key-box">
               <h4 className="q__key-title">Popular Cities</h4>
@@ -63,7 +73,9 @@ async function DestinationDetail({ params: { destTitle } }) {
             </div>
             <div className="q__key-box">
               <h4 className="q__key-title">International Student Population</h4>
-              <span className="q__key-info">1.1 Million</span>
+              <span className="q__key-info">
+                {destination?.keys?.studentPopulation || "1.1 Million"}
+              </span>
             </div>
           </div>
         </div>

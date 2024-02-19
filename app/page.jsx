@@ -6,7 +6,7 @@ import Hero from "@/sections/Home/Hero";
 import HomeDestinations from "@/sections/Home/HomeDestinations";
 import HomeVideo from "@/sections/Home/HomeVideo";
 import HowWeWork from "@/sections/Home/HowWeWork";
-import { Image } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
@@ -21,9 +21,10 @@ export default function Home() {
             <Image
               src="/arrow-forward.svg"
               width={21}
-              height={6.5}
+              height={7}
               className="arrow-forward"
               alt="arrow forward"
+              unoptimized
             />
           </Link>
         </div>

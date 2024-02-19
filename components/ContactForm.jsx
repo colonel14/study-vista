@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "./ui/textarea";
+import toast from "react-hot-toast";
 
 const formSchema = z.object({
   name: z.string({ required_error: "Name is required" }),
@@ -46,7 +47,7 @@ function ContactForm() {
   });
 
   function onSubmit(values) {
-    console.log(values);
+    toast.success("Submitted Successfully");
   }
   return (
     <div>
