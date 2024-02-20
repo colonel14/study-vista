@@ -2,7 +2,6 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 
 import {
   Form,
@@ -20,29 +19,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Progress } from "./ui/progress";
 import toast from "react-hot-toast";
-
-const formSchema = z.object({
-  fullname: z.string({ required_error: "Fullname is required" }),
-  gender: z.string({ required_error: "Please select gender." }),
-  nationality: z.string({ required_error: "Please select nationality." }),
-  city: z.string({ required_error: "Please select city." }),
-  residence: z.string({ required_error: "Please select residence." }),
-  email: z
-    .string({ required_error: "Email is required" })
-    .refine((value) => /\S+@\S+\.\S+/.test(value), {
-      message: "Invalid email format. Please enter a valid email address.",
-    }),
-  mobile: z.string({ required_error: "Mobile is required" }),
-  dob: z.string({ required_error: "Please select a date." }),
-  where: z.string({ required_error: "Please select a value." }),
-  university: z.string({ required_error: "Please select a value." }),
-  subjectArea: z.string({ required_error: "Please select a value." }),
-  destination: z.string({ required_error: "Please select a value." }),
-  startDate: z.string({ required_error: "Please select a value." }),
-});
+import applyNow from "@/actions/applyNow";
+import { ApplyFormSchema } from "@/schemas";
+import { Country, State } from "country-state-city";
 
 const steps = [
   {
@@ -62,30 +44,33 @@ const steps = [
 const porgressMessage = ["First step", "Second step", "Last step"];
 
 function ApplyForm() {
+  const countryData = Country.getAllCountries();
+  const [country, setCountry] = useState(countryData[0]?.isoCode);
+  const [stateData, setStateData] = useState([]);
+
   const [currentStep, setCurrentStep] = useState(1);
 
+  useEffect(() => {
+    setStateData(State.getStatesOfCountry(country));
+  }, [country]);
+
   const form = useForm({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(ApplyFormSchema),
     mode: "onChange",
-    // defaultValues: {
-    //   fullname: "",
-    //   gender: "",
-    //   nationality: "",
-    //   city: "",
-    //   residence: "",
-    //   email: "",
-    //   mobile: "",
-    //   dob: "",
-    //   where: "",
-    //   university: "",
-    //   subjectArea: "",
-    //   destination: "",
-    //   startDate: "",
-    // },
   });
 
-  function onSubmit(values) {
-    toast.success("Submitted Successfully");
+  async function onSubmit(values) {
+    const result = await applyNow(values);
+    if (result?.success) {
+      toast.success("Submitted Successfully");
+      form.reset();
+      setCurrentStep(1);
+      return;
+    }
+    if (result?.error) {
+      toast.error("Something went wrong");
+      return;
+    }
   }
 
   const onNext = async () => {
@@ -164,7 +149,10 @@ function ApplyForm() {
                     <FormItem>
                       <FormControl>
                         <Select
-                          onValueChange={field.onChange}
+                          onValueChange={(value) => {
+                            field.onChange(value);
+                            setCountry(value);
+                          }}
                           value={field.value}
                           defaultValue={field.value}
                         >
@@ -173,10 +161,18 @@ function ApplyForm() {
                           </SelectTrigger>
                           <SelectContent>
                             <SelectGroup>
-                              <SelectItem value="option1">Option 1</SelectItem>
-                              <SelectItem value="option2">Option 2</SelectItem>
-                              <SelectItem value="option3">Option 3</SelectItem>
-                              <SelectItem value="option4">Option 4</SelectItem>
+                              {countryData.map((country) => (
+                                <div
+                                  key={country.name}
+                                  onClick={() => {
+                                    console.log(country.name);
+                                  }}
+                                >
+                                  <SelectItem value={country.name}>
+                                    {country.name}
+                                  </SelectItem>
+                                </div>
+                              ))}
                             </SelectGroup>
                           </SelectContent>
                         </Select>
@@ -201,10 +197,11 @@ function ApplyForm() {
                           </SelectTrigger>
                           <SelectContent>
                             <SelectGroup>
-                              <SelectItem value="option1">Option 1</SelectItem>
-                              <SelectItem value="option2">Option 2</SelectItem>
-                              <SelectItem value="option3">Option 3</SelectItem>
-                              <SelectItem value="option4">Option 4</SelectItem>
+                              {stateData.map((state) => (
+                                <SelectItem key={state.name} value={state.name}>
+                                  {state.name}
+                                </SelectItem>
+                              ))}
                             </SelectGroup>
                           </SelectContent>
                         </Select>
@@ -230,10 +227,14 @@ function ApplyForm() {
                         </SelectTrigger>
                         <SelectContent>
                           <SelectGroup>
-                            <SelectItem value="option1">Option 1</SelectItem>
-                            <SelectItem value="option2">Option 2</SelectItem>
-                            <SelectItem value="option3">Option 3</SelectItem>
-                            <SelectItem value="option4">Option 4</SelectItem>
+                            {countryData.map((country) => (
+                              <SelectItem
+                                key={`${country.isoCode}-residence`}
+                                value={country.name}
+                              >
+                                {country.name}
+                              </SelectItem>
+                            ))}
                           </SelectGroup>
                         </SelectContent>
                       </Select>

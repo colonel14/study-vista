@@ -13,41 +13,26 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "./ui/textarea";
 import toast from "react-hot-toast";
-
-const formSchema = z.object({
-  name: z.string({ required_error: "Name is required" }),
-  email: z
-    .string({ required_error: "Email is required" })
-    .refine((value) => /\S+@\S+\.\S+/.test(value), {
-      message: "Invalid email format. Please enter a valid email address.",
-    }),
-  phone: z.string({ required_error: "Phone is required" }),
-  message: z.string({ required_error: "Message is required" }),
-});
+import { ContactFormSchema } from "@/schemas";
+import contact from "@/actions/contact";
 
 function ContactForm() {
   const form = useForm({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(ContactFormSchema),
     mode: "onChange",
-    // defaultValues: {
-    //   fullname: "",
-    //   gender: "",
-    //   nationality: "",
-    //   city: "",
-    //   residence: "",
-    //   email: "",
-    //   mobile: "",
-    //   dob: "",
-    //   where: "",
-    //   university: "",
-    //   subjectArea: "",
-    //   destination: "",
-    //   startDate: "",
-    // },
   });
 
-  function onSubmit(values) {
-    toast.success("Submitted Successfully");
+  async function onSubmit(values) {
+    const result = await contact(values);
+    if (result?.success) {
+      toast.success("Submitted Successfully");
+      form.reset();
+      return;
+    }
+    if (result?.error) {
+      toast.error("Something went wrong");
+      return;
+    }
   }
   return (
     <div>

@@ -12,6 +12,50 @@
     padding: 6rem 4rem;
   }
 
+  .destinations__list {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    justify-content: center;
+  }
+  .destination__link {
+    height: auto;
+    aspect-ratio: 1 / 2;
+    max-height: 560px;
+  }
+  .destinations__page .destination__link {
+    height: auto;
+    aspect-ratio: 1 / 2;
+    max-height: 645px;
+  }
+
+  .destination__link:nth-of-type(2) {
+    top: 51px;
+  }
+  .destination__link:nth-of-type(3) {
+    top: 0;
+  }
+  .destination__link:nth-of-type(4) {
+    top: 0;
+    left: 13vw;
+  }
+  .destination__link:nth-of-type(5) {
+    top: 0;
+    left: 20vw;
+  }
+
+  .destinations__page .destination__link:nth-child(3n + 2) {
+    top: 51px;
+    left: 0;
+  }
+  .destinations__page .destination__link:nth-child(3n + 1) {
+    top: 0;
+    left: 0;
+  }
+  .destinations__page .destination__link:nth-child(3n) {
+    top: 0;
+    left: 0;
+  }
+
   .destination__hero {
     padding: 4rem 0 0 0;
   }
@@ -167,14 +211,8 @@
   }
 
   .home__video .app__video {
-    min-height: 300px;
-    height: auto;
     margin: 0;
     transform: translateY(-50%);
-  }
-  .app__video {
-    min-height: 300px;
-    height: auto;
   }
 
   .about__section {
@@ -209,6 +247,9 @@
   }
   .quick__keys-title {
     font-size: clamp(1.4rem, 4vw, 1.7rem);
+  }
+  .destination__placeholder::after {
+    height: 5%;
   }
 }
 
@@ -369,5 +410,17 @@
   }
   .how__steps::after {
     display: none;
+  }
+  .destinations__list {
+    gap: 10px;
+  }
+  .destinations__page {
+    padding: 0 0 4rem;
+  }
+  .destination__link:nth-of-type(4) {
+    top: 20px;
+  }
+  .destination__link:nth-of-type(5) {
+    top: 20px;
   }
 }
