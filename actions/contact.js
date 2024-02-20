@@ -37,7 +37,7 @@ export default async function contact(values) {
     await transporter.sendMail({
       ...mailOptions,
       ...generateEmailContent(values),
-      subject: "Apply Email",
+      subject: "Contact Email",
     });
 
     return { success: "Email Send Successfully" };

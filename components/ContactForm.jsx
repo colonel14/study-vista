@@ -15,24 +15,29 @@ import { Textarea } from "./ui/textarea";
 import toast from "react-hot-toast";
 import { ContactFormSchema } from "@/schemas";
 import contact from "@/actions/contact";
+import { useTransition } from "react";
+import { Button } from "./ui/button";
 
 function ContactForm() {
+  const [isPending, startTransition] = useTransition();
   const form = useForm({
     resolver: zodResolver(ContactFormSchema),
     mode: "onChange",
   });
 
-  async function onSubmit(values) {
-    const result = await contact(values);
-    if (result?.success) {
-      toast.success("Submitted Successfully");
-      form.reset();
-      return;
-    }
-    if (result?.error) {
-      toast.error("Something went wrong");
-      return;
-    }
+  function onSubmit(values) {
+    startTransition(async () => {
+      const result = await contact(values);
+      if (result?.success) {
+        toast.success("Submitted Successfully");
+        form.reset();
+        return;
+      }
+      if (result?.error) {
+        toast.error("Something went wrong");
+        return;
+      }
+    });
   }
   return (
     <div>
@@ -104,9 +109,13 @@ function ContactForm() {
           />
 
           <div className="text-center"></div>
-          <button type="submit" className="app__btn app__btn-lg">
+          <Button
+            type="submit"
+            className="app__btn app__btn-lg"
+            disabled={isPending}
+          >
             Send
-          </button>
+          </Button>
         </form>
       </Form>
     </div>

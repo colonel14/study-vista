@@ -19,12 +19,19 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+  useTransition,
+} from "react";
 import { Progress } from "./ui/progress";
 import toast from "react-hot-toast";
 import applyNow from "@/actions/applyNow";
 import { ApplyFormSchema } from "@/schemas";
 import { Country, State } from "country-state-city";
+import { Button } from "./ui/button";
 
 const steps = [
   {
@@ -47,6 +54,7 @@ function ApplyForm() {
   const countryData = Country.getAllCountries();
   const [country, setCountry] = useState(countryData[0].name);
   const [stateData, setStateData] = useState([]);
+  const [isPending, startTransition] = useTransition();
 
   const [currentStep, setCurrentStep] = useState(1);
 
@@ -61,18 +69,20 @@ function ApplyForm() {
     mode: "onChange",
   });
 
-  async function onSubmit(values) {
-    const result = await applyNow(values);
-    if (result?.success) {
-      toast.success("Submitted Successfully");
-      form.reset();
-      setCurrentStep(1);
-      return;
-    }
-    if (result?.error) {
-      toast.error("Something went wrong");
-      return;
-    }
+  function onSubmit(values) {
+    startTransition(async () => {
+      const result = await applyNow(values);
+      if (result?.success) {
+        toast.success("Submitted Successfully");
+        form.reset();
+        setCurrentStep(1);
+        return;
+      }
+      if (result?.error) {
+        toast.error("Something went wrong");
+        return;
+      }
+    });
   }
 
   const onNext = async () => {
@@ -469,9 +479,13 @@ function ApplyForm() {
               />
 
               <div className="text-center">
-                <button type="submit" className="app__btn app__btn-lg">
+                <Button
+                  type="submit"
+                  className="app__btn app__btn-lg"
+                  disabled={isPending}
+                >
                   Submit
-                </button>
+                </Button>
               </div>
             </>
           )}
