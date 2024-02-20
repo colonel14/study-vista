@@ -19,7 +19,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Progress } from "./ui/progress";
 import toast from "react-hot-toast";
 import applyNow from "@/actions/applyNow";
@@ -45,14 +45,16 @@ const porgressMessage = ["First step", "Second step", "Last step"];
 
 function ApplyForm() {
   const countryData = Country.getAllCountries();
-  const [country, setCountry] = useState(countryData[0]?.isoCode);
+  const [country, setCountry] = useState(countryData[0].name);
   const [stateData, setStateData] = useState([]);
 
   const [currentStep, setCurrentStep] = useState(1);
 
   useEffect(() => {
-    setStateData(State.getStatesOfCountry(country));
-  }, [country]);
+    const selectedCountry = countryData.find((item) => item.name == country);
+
+    setStateData(State.getStatesOfCountry(selectedCountry?.isoCode));
+  }, [country, countryData]);
 
   const form = useForm({
     resolver: zodResolver(ApplyFormSchema),
@@ -162,12 +164,7 @@ function ApplyForm() {
                           <SelectContent>
                             <SelectGroup>
                               {countryData.map((country) => (
-                                <div
-                                  key={country.name}
-                                  onClick={() => {
-                                    console.log(country.name);
-                                  }}
-                                >
+                                <div key={country.name} onClick={() => {}}>
                                   <SelectItem value={country.name}>
                                     {country.name}
                                   </SelectItem>
@@ -325,10 +322,24 @@ function ApplyForm() {
                         </SelectTrigger>
                         <SelectContent>
                           <SelectGroup>
-                            <SelectItem value="option1">Option 1</SelectItem>
-                            <SelectItem value="option2">Option 2</SelectItem>
-                            <SelectItem value="option3">Option 3</SelectItem>
-                            <SelectItem value="option4">Option 4</SelectItem>
+                            <SelectItem value="Facebook">Facebook</SelectItem>
+                            <SelectItem value="Youtube">Youtube</SelectItem>
+                            <SelectItem value="Linkedin">Linkedin</SelectItem>
+                            <SelectItem value="Instagram">Instagram</SelectItem>
+                            <SelectItem value="Twitter">Twitter</SelectItem>
+                            <SelectItem value="Google">Google</SelectItem>
+                            <SelectItem value="Email newsletter">
+                              Email newsletter
+                            </SelectItem>
+                            <SelectItem value="Online article">
+                              Online article
+                            </SelectItem>
+                            <SelectItem value="Friend or family">
+                              Friend or family
+                            </SelectItem>
+                            <SelectItem value="Event or conference">
+                              Event or conference
+                            </SelectItem>
                           </SelectGroup>
                         </SelectContent>
                       </Select>
@@ -412,10 +423,14 @@ function ApplyForm() {
                         </SelectTrigger>
                         <SelectContent>
                           <SelectGroup>
-                            <SelectItem value="option1">Option 1</SelectItem>
-                            <SelectItem value="option2">Option 2</SelectItem>
-                            <SelectItem value="option3">Option 3</SelectItem>
-                            <SelectItem value="option4">Option 4</SelectItem>
+                            {countryData.map((country) => (
+                              <SelectItem
+                                key={`${country.isoCode}-destinations`}
+                                value={country.name}
+                              >
+                                {country.name}
+                              </SelectItem>
+                            ))}
                           </SelectGroup>
                         </SelectContent>
                       </Select>
