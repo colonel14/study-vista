@@ -28,17 +28,17 @@
     max-height: 645px;
   }
 
-  .destination__link:nth-of-type(2) {
+  .home__destinations .destination__link:nth-of-type(2) {
     top: 51px;
   }
-  .destination__link:nth-of-type(3) {
+  .home__destinations .destination__link:nth-of-type(3) {
     top: 0;
   }
-  .destination__link:nth-of-type(4) {
+  .home__destinations .destination__link:nth-of-type(4) {
     top: 0;
     left: 13vw;
   }
-  .destination__link:nth-of-type(5) {
+  .home__destinations .destination__link:nth-of-type(5) {
     top: 0;
     left: 20vw;
   }
@@ -417,10 +417,10 @@
   .destinations__page {
     padding: 0 0 4rem;
   }
-  .destination__link:nth-of-type(4) {
+  .home__destinations .destination__link:nth-of-type(4) {
     top: 20px;
   }
-  .destination__link:nth-of-type(5) {
+  .home__destinations .destination__link:nth-of-type(5) {
     top: 20px;
   }
 }
