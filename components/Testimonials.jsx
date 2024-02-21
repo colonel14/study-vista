@@ -7,8 +7,10 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "./ui/carousel";
+import { getAllTestimonials } from "@/lib/client";
 
-function Testimonials() {
+async function Testimonials() {
+  const testimonials = (await getAllTestimonials()) || [];
   return (
     <div className="testimonials__section">
       <div className="container">
@@ -25,22 +27,12 @@ function Testimonials() {
             <h2 className="headtext">What out students says</h2>
             <Carousel className="w-full relative">
               <CarouselContent>
-                {Array.from({ length: 5 }).map((_, index) => (
+                {testimonials.map((item, index) => (
                   <CarouselItem key={index}>
                     <div className="p-1">
                       <div className="testimonial__box">
                         <p className="testimonial__box-message">
-                          &quot;Lorem ipsum dolor sit amet, consectetur
-                          adipiscing elit, sed do eiusmod tempor incididunt ut
-                          labore et dolore magna aliqua. Commodo quis imperdiet
-                          massa tincidunt nunc pulvinar sapien et. Amet mauris
-                          commodo quis imperdiet massa tincidunt nunc. Pretium
-                          aenean pharetra magna ac placerat vestibulum lectus
-                          mauris. Suspendisse interdum consectetur libero id
-                          faucibus nisl tincidunt eget. Mi proin sed libero
-                          enim. Augue interdum velit euismod in pellentesque
-                          massa placerat duis. Quis viverra nibh cras pulvinar
-                          mattis nunc. A diam sollicitudin &quot;
+                          {item.comment}
                         </p>
                         <div className="testimonial__box-client">
                           <Image
@@ -53,33 +45,41 @@ function Testimonials() {
                           />
                           <div>
                             <h4 className="testimonial__box-name">
-                              Hossam fawzy
+                              {item?.name}
                             </h4>
                             <span className="testimonial__box-position">
-                              lorem ipsum
+                              {item?.position}
                             </span>
-                            <div className="testimonial__box-rating">
-                              {Array.from({ length: 4 }).map((_, index) => (
-                                <Image
-                                  key={index}
-                                  src="/star-fill.svg"
-                                  width={28}
-                                  height={27}
-                                  className="testimonial-star"
-                                  alt="star"
-                                  unoptimized
-                                />
-                              ))}
-                              <Image
-                                key={index}
-                                src="/star-off.svg"
-                                width={28}
-                                height={27}
-                                className="testimonial-star"
-                                alt="star"
-                                unoptimized
-                              />
-                            </div>
+                            {item?.rating && (
+                              <div className="testimonial__box-rating">
+                                {Array.from({
+                                  length: item.rating,
+                                }).map((_, index) => (
+                                  <Image
+                                    key={index}
+                                    src="/star-fill.svg"
+                                    width={28}
+                                    height={27}
+                                    className="testimonial-star"
+                                    alt="star"
+                                    unoptimized
+                                  />
+                                ))}
+                                {Array.from({ length: 5 - item.rating }).map(
+                                  (_, index) => (
+                                    <Image
+                                      key={index}
+                                      src="/star-off.svg"
+                                      width={28}
+                                      height={27}
+                                      className="testimonial-star"
+                                      alt="star"
+                                      unoptimized
+                                    />
+                                  )
+                                )}
+                              </div>
+                            )}
                           </div>
                         </div>
                       </div>

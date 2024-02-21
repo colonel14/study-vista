@@ -1,3 +1,4 @@
+import urlFor from "@/lib/urlFor";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -8,15 +9,14 @@ function Destinations({ destinations, columnCount = 5 }) {
         className="destinations__list"
         style={{ "--columns-count": columnCount }}
       >
-        {destinations.map((destination) => (
+        {destinations.map((destination, idx) => (
           <Link
-            key={destination.country}
-            href={`/destinations/${destination.country}`}
+            key={idx}
+            href={`/destinations/${destination?.slug?.current}`}
             className="destination__link"
-            style={{ "--row-start": destination.rowStart }}
           >
             <Image
-              src={destination.image}
+              src={urlFor(destination.thumbnail)?.url()}
               fill
               alt="country placeholder"
               unoptimized

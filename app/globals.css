@@ -271,6 +271,16 @@ body {
   height: 510px;
 }
 
+.home__destinations .destination__link:nth-of-type(2) {
+  top: calc(2 * 51px);
+}
+.home__destinations .destination__link:nth-of-type(3) {
+  top: calc(1 * 51px);
+}
+.home__destinations .destination__link:nth-of-type(4) {
+  top: calc(2 * 51px);
+}
+
 .home__destinations {
   padding: 0 0 8rem;
 }
@@ -834,6 +844,11 @@ body {
   padding: 5.4rem 0;
 }
 
+.destinations__page .destination__link:nth-child(7n + 2),
+.destinations__page .destination__link:nth-child(3n + 3),
+.destinations__page .destination__link:nth-child(4n + 3) {
+  top: calc(2 * 51px);
+}
 .destinations__page .destination__link {
   height: 645px;
 }

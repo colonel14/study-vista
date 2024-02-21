@@ -8,6 +8,7 @@ import HomeVideo from "@/sections/Home/HomeVideo";
 import HowWeWork from "@/sections/Home/HowWeWork";
 import Image from "next/image";
 import Link from "next/link";
+import { Suspense } from "react";
 
 export default function Home() {
   return (
@@ -32,7 +33,9 @@ export default function Home() {
       </div>
       <HowWeWork />
       <HomeVideo />
-      <Testimonials />
+      <Suspense fallback={null}>
+        <Testimonials />
+      </Suspense>
       <VideoPopup />
     </div>
   );

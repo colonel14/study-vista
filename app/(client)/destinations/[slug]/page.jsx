@@ -1,25 +1,38 @@
 import { destinations } from "@/constants";
+import { getAllDestinationsSlugs, getDestinationBySlug } from "@/lib/client";
+import urlFor from "@/lib/urlFor";
 import Image from "next/image";
 import React from "react";
 
-async function DestinationDetail({ params: { destTitle } }) {
-  const destination = destinations.find(
-    (destination) => destination.country === destTitle
-  );
+export const revalidate = 3600; // revalidate the data at most every hour
+
+export async function generateStaticParams() {
+  return await getAllDestinationsSlugs();
+}
+
+export async function generateMetadata({ params }) {
+  const destination = await getDestinationBySlug(params.slug);
+  return { title: destination.name };
+}
+
+async function DestinationDetail({ params: { slug } }) {
+  const destination =
+    (await getDestinationBySlug(slug)) ||
+    destinations.find((item) => item.country == slug);
 
   return (
     <div className="destionation__detail">
       <div className="destination__hero">
         <div className="container">
           <div className="destination__hero-text">
-            <h1 className="destination__title">{destination.title}</h1>
+            <h1 className="destination__title">{destination.name}</h1>
             <p className="p__text">{destination.description}</p>
           </div>
         </div>
       </div>
       <div className="destination__placeholder">
         <Image
-          src={destination.placeholder}
+          src={urlFor(destination?.placeholder)?.url()}
           width={1000}
           height={400}
           className="destination__placeholder-img object-fit"
@@ -33,24 +46,24 @@ async function DestinationDetail({ params: { destTitle } }) {
           <div className="quick__keys-list">
             <div className="q__key-box">
               <h4 className="q__key-title">Population</h4>
-              <span className="q__key-info">329.5 Million</span>
+              <span className="q__key-info">{destination?.population}</span>
             </div>
             <div className="q__key-box">
               <h4 className="q__key-title">Capital City</h4>
               <span className="q__key-info">
-                {destination?.keys?.capitalCity || "Washington, D.C"}
+                {destination?.capitalCity || "Washington, D.C"}
               </span>
             </div>
             <div className="q__key-box">
               <h4 className="q__key-title">Currency</h4>
               <span className="q__key-info">
-                {destination?.keys?.currency || "$ US Dollar"}
+                {destination?.currency || "$ US Dollar"}
               </span>
             </div>
             <div className="q__key-box">
               <h4 className="q__key-title">Tuition Fees</h4>
               <span className="q__key-info">
-                Starting from {destination?.keys?.fees || "$12,500"}/Year
+                Starting from ${destination?.fees || "$12,500"}/Year
               </span>
             </div>
             <div className="q__key-box">
@@ -62,19 +75,17 @@ async function DestinationDetail({ params: { destTitle } }) {
             <div className="q__key-box">
               <h4 className="q__key-title">Intakes</h4>
               <span className="q__key-info">
-                {destination?.keys?.intakes || "Fall & Spring"}
+                {destination?.intakes || "Fall & Spring"}
               </span>
             </div>
             <div className="q__key-box">
               <h4 className="q__key-title">Popular Cities</h4>
-              <span className="q__key-info">
-                New York, San Francisco, Chicago, Boston
-              </span>
+              <span className="q__key-info">{destination?.popularCities}</span>
             </div>
             <div className="q__key-box">
               <h4 className="q__key-title">International Student Population</h4>
               <span className="q__key-info">
-                {destination?.keys?.studentPopulation || "1.1 Million"}
+                {destination?.studentPopulation || "1.1 Million"}
               </span>
             </div>
           </div>
